@@ -8,6 +8,11 @@ public class Location {
     ArrayList<Item> items; // list of items in this location
     ArrayList<Location> adjacentLocations; // list of adjacent locations
 
+    //Added by Claire
+    private Coordinate coordinate;
+    
+
+
 
     public Location() {
         // Constructor
@@ -22,5 +27,12 @@ public class Location {
     }
 
 
+    public Coordinate getCoord(){
+        return this.coordinate;
+    }
+
+    public ArrayList<Location> getAdjLocations(){
+        return this.adjacentLocations;
+    }
     
 }
