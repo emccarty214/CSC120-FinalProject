@@ -1,15 +1,24 @@
 import java.util.ArrayList;
 
+/**
+ * A class that simulates the Main Player Character.
+ * Author : Claire Newcom
+ */
 public class MainCharacter {
 
     Location currentLocation;
     ArrayList<Item> inventory;
 
-    public MainCharacter(Location initialLocation){
+    public MainCharacter(Location initialLocation) {
         currentLocation=initialLocation;
         inventory = new ArrayList<Item>();
     }
 
+    /**
+     * A method that allows the player to move around the map. A direction is taken as an input,
+     * and if there is another location in that direction, the player moves in that direction
+     * @param direction A string representing one of four directions: north, east, south, or west
+     */
     public void move(String direction) {
 
         Coordinate newCoord = this.newCoord(direction);
@@ -17,38 +26,106 @@ public class MainCharacter {
         ArrayList<Location> adjLoc = this.currentLocation.getAdjLocations();
 
         boolean isAdjacent = false;
-        Location adjLocation = new Location();
+        Location adjLocation = new Location("Blank", "Blank", new Coordinate(-1000,-1000), new ArrayList<Item>(), new ArrayList<Location>());
 
-        for (Location l: adjLoc){
-            if(l.getCoord().equals(newCoord)){
+        for (Location l: adjLoc) {
+            if(l.getCoord().getX() == newCoord.getX() && l.getCoord().getY() == newCoord.getY()){
                 isAdjacent = true;
                 adjLocation = l;
                 break;
             }
         }
 
-        if(isAdjacent){
+        if(isAdjacent) {
             this.currentLocation = adjLocation;
-        } else{
-            System.out.println("You can't go this way!");
+        } else {
+            throw new RuntimeException("You can't go this way!");
         }
 
     }
 
-    private Coordinate newCoord(String direction){
+    /**
+     * A helper method for move(). Calculates the Coordinate of the possible adjacent Location 
+     * based on the direction. If the location passed in is not one of the four valid directions,
+     * throws a RuntimeException.
+     * @param direction A string representing one of four directions: north, east, south, or west
+     * @return the new Coordinate.
+     */
+    private Coordinate newCoord(String direction) {
         Coordinate currentCoord = this.currentLocation.getCoord();
-        if(direction.equalsIgnoreCase("north")){
+        if(direction.equalsIgnoreCase("north")) {
             return new Coordinate(currentCoord.getX(), currentCoord.getY() +1);
         } else if (direction.equalsIgnoreCase("east")) {
             return new Coordinate(currentCoord.getX()+1, currentCoord.getY());
-        } else if (direction.equalsIgnoreCase("south")){
+        } else if (direction.equalsIgnoreCase("south")) {
             return new Coordinate(currentCoord.getX(), currentCoord.getY() -1);
-        } else if (direction.equalsIgnoreCase("west")){
+        } else if (direction.equalsIgnoreCase("west")) {
             return new Coordinate(currentCoord.getX()-1, currentCoord.getY());
-        } else{
+        } else {
             throw new RuntimeException("Not a valid direction. Valid directions are north, east, south, or west");
         }
     }
 
+    /**
+     * If the item that the player wants to use is in the inventory, allow the player to use it
+     * if not, throw a RuntimeException
+     * @param i the item that you are trying to use.
+     */
+    public void useItem(Item i) {
+        if (inventory.contains(i)) { //I want to just say quickly that this may not work because contains checks if the exact object is the same, so this might be a problem point when debugging
+            i.use();
+        } else {
+            throw new RuntimeException("You don't have " + i.getName() + " in your inventory!");
+            //this could also be a print statement, but I think an exception would be more useful
+        }
+    }
+
+    /**
+     * Adds a new item to the inventory if the current location has that item to be collected. 
+     * Throws an exception if the item is not in the inventory of the currentLocation.
+     * Throws an exception if this item is already in the player's inventory
+     * @param i the item that you are collecting
+     */
+    public void collect(Item i) {
+        this.currentLocation.removeItem(i);
+
+        if (!this.inventory.contains(i)) {
+            this.inventory.add(i);
+        } else {
+            throw new RuntimeException(i.getName() + " is alread in your inventory. You cannot add an item that is already in your inventory");
+        }
+        
+    }
+
+    /**
+     * If the item in question is in your inventory, removes it from your inventory and adds it
+     * to the inventory of the location. Throws an exception if the item is not in the inventory 
+     * of the mainCharacter. Throws an exception if this item is already in the currentLocation's inventory
+     * @param i the item that you are dropping.
+     */
+    public void drop(Item i){
+        if (this.inventory.contains(i)) {
+            this.inventory.remove(i);
+        } else {
+            throw new RuntimeException ("There is no " + i.getName() + " currently in your Inventory. You cannot remove an item that does not exist");
+        }
+
+        this.currentLocation.addItem(i);
+    }
+
+
+    /**
+     * Prints out all of the items currently in the inventory
+     */
+    public void printInventory(){
+        if(this.inventory.isEmpty()){
+            System.out.println("There are no items in your inventory");
+        } else {
+            System.out.println("Inventory: ");
+            for(Item i : inventory){
+                System.out.println(i.getName());
+            }
+        }
+    }
     
 }

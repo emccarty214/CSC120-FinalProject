@@ -1,4 +1,4 @@
-public class Item{
+public abstract class Item{
 
     private String name;
     private String description;
@@ -20,4 +20,6 @@ public class Item{
     public String getName() {
         return this.name;
     }
+
+    public abstract void use();
 }
