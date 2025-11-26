@@ -16,4 +16,8 @@ public class Item{
     public void describe(){
         System.out.println("");
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
