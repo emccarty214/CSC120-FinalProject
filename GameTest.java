@@ -37,14 +37,22 @@ public class GameTest {
     
 
     public static void main(String[] args) {
+
+        Location l2 = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>(), new ArrayList<Location>());
+        MainCharacter abby = new MainCharacter(l2);
+
         //test Item Describe Method
         Stick stick = new Stick("STICK", "Its a stick");
         stick.describe();
+        l2.addItem(stick);
 
         //testing add item, remove item, and print items
 
         Stick stick2 = new Stick("STICK2", "Its a stick");
         Location l = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>(), new ArrayList<Location>());
+        
+        abby.collect(stick);
+        abby.printInventory();
         
         //no error
         try {
