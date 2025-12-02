@@ -14,7 +14,7 @@ public abstract class Item{
     }
 
     public void describe(){
-        System.out.println("");
+        System.out.println(this.name + ": " + this.description);
     }
 
     public String getName() {
