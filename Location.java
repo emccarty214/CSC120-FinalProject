@@ -85,5 +85,7 @@ public class Location {
     public ArrayList<Location> getAdjLocations(){
         return this.adjacentLocations;
     }
+
+    
     
 }

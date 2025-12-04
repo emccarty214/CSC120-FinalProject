@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
 
     //Note from Claire: When we are creating sticks, as repetitive as it may be, we should create
@@ -36,6 +39,55 @@ public class Main {
                 // on the ground, and a possible path to the South and East.
         // There is more that needs to be written, this is just to give us an idea of some location
             // descriptions and how we might want to format things
+
+    public static void main(String[] args) {
+        // This is a "flag" to let us know when the loop should end
+        boolean stillPlaying = true;
+
+        // We'll use this to get input from the user.
+        Scanner userInput = new Scanner(System.in);
+
+        // Storage for user's responses
+        String userResponse = "";
+
+        Stick stick1 = new Stick("A bendy stick", "This is a bendy stick, you can pick it up if you want.");
+        Location beach = new Location("North beach", "TO DO : FILL IN - NORTH BEACH", new Coordinate(0,0), new ArrayList<Item>(), new ArrayList<Lcoation>());
+
+        // This could be replaced with a more interesting opening
+        System.out.println("******************");
+        System.out.println("WELCOME TO THE GAME"); //Figure out how to format dialogue better
+        System.out.println("You wake up with a start. You're lying on a beach, stranded. You stand up, wiping the sand from your clothes and look around. You see that your BOAT is lying on the beach about 100 yards from you, and there is a Jungle to the South.");
+        System.out.println("******************");
+
+        // Instructions are sometimes helpful
+        System.out.println("Enter WIN to win, LOSE to lose, anything else to continue playing.");
+
+        // The do...while structure means we execute the body of the loop once before checking the stopping condition
+        do {
+            // ************************************************
+            // The stuff that happens in your game will go here
+            //  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓
+            System.out.println("You are still playing. Follow the instructions if you want to win/lose...");
+            userResponse = userInput.nextLine().toUpperCase();
+
+            // ***********************************************************************
+            // And as the player interacts, you'll check to see if the game should end
+            //  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓
+            if (userResponse.equals("WIN") || userResponse.equals("LOSE")) {
+                stillPlaying = false;
+            }
+        } while (stillPlaying);
+
+        // Tidy up
+        userInput.close();
+
+        // Once you exit the loop, you may need to deal with various possible stopping conditions
+        if (userResponse.equals("WIN")) {
+            System.out.println("Win Statement: ToDo Replace");
+        } else { // userResponse.equals("LOSE")
+            System.out.println("Fail Statement: ToDo Replace");
+        }
+    }
 
     
 }
