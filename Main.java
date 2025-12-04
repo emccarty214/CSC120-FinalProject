@@ -51,7 +51,7 @@ public class Main {
         String userResponse = "";
 
         Stick stick1 = new Stick("A bendy stick", "This is a bendy stick, you can pick it up if you want.");
-        Location beach = new Location("North beach", "TO DO : FILL IN - NORTH BEACH", new Coordinate(0,0), new ArrayList<Item>(), new ArrayList<Lcoation>());
+        //Location beach = new Location("North beach", "TO DO : FILL IN - NORTH BEACH", new Coordinate(0,0), new ArrayList<Item>(), new ArrayList<Lcoation>());
 
         // This could be replaced with a more interesting opening
         System.out.println("******************");
