@@ -8,10 +8,16 @@ public class MainCharacter {
 
     Location currentLocation;
     ArrayList<Item> inventory;
+    public int numSticks;
+    int numNails;
+    int numHammers;
 
     public MainCharacter(Location initialLocation) {
         currentLocation=initialLocation;
         inventory = new ArrayList<Item>();
+        numSticks = 0;
+        numNails = 0;
+        numHammers = 0;
     }
 
     /**
@@ -91,6 +97,14 @@ public class MainCharacter {
 
         if (!this.inventory.contains(i)) {
             this.inventory.add(i);
+            // update counters based on item type
+            if (i instanceof Stick) {
+                numSticks++;
+            } else if (i instanceof Nail) {
+                numNails++;
+            } else if (i instanceof Hammer) {
+                numHammers++;
+            }
         } else {
             throw new RuntimeException(i.getName() + " is alread in your inventory. You cannot add an item that is already in your inventory");
         }
@@ -110,6 +124,15 @@ public class MainCharacter {
             throw new RuntimeException ("There is no " + i.getName() + " currently in your Inventory. You cannot remove an item that does not exist");
         }
 
+        // update counters based on concrete item type
+            if (i instanceof Stick) {
+                numSticks--;
+            } else if (i instanceof Nail) {
+                numNails--;
+            } else if (i instanceof Hammer) {
+                numHammers--;
+            }
+
         this.currentLocation.addItem(i);
     }
 
@@ -121,10 +144,12 @@ public class MainCharacter {
         if(this.inventory.isEmpty()){
             System.out.println("There are no items in your inventory");
         } else {
-            System.out.println("Inventory: ");
-            for(Item i : inventory){
-                System.out.println(i.getName());
-            }
+            System.out.println("----------");
+            System.out.println("INVENTORY");
+            System.out.println("Sticks: " + numSticks);
+            System.out.println("Nails: " + numNails);
+            System.out.println("Hammers: " + numHammers);
+            System.out.println("----------");
         }
     }
     
