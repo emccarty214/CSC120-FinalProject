@@ -13,11 +13,11 @@ public class MainCharacter {
     int numHammers;
 
     public MainCharacter(Location initialLocation) {
-        currentLocation=initialLocation;
-        inventory = new ArrayList<Item>();
-        numSticks = 0;
-        numNails = 0;
-        numHammers = 0;
+        this.currentLocation=initialLocation;
+        this.inventory = new ArrayList<Item>();
+        this.numSticks = 0;
+        this.numNails = 0;
+        this.numHammers = 0;
     }
 
     /**
@@ -32,7 +32,7 @@ public class MainCharacter {
         ArrayList<Location> adjLoc = this.currentLocation.getAdjLocations();
 
         boolean isAdjacent = false;
-        Location adjLocation = new Location("Blank", "Blank", new Coordinate(-1000,-1000), new ArrayList<Item>(), new ArrayList<Location>());
+        Location adjLocation = new Location("Blank", "Blank", new Coordinate(-1000,-1000), new ArrayList<Item>());
 
         for (Location l: adjLoc) {
             if(l.getCoord().getX() == newCoord.getX() && l.getCoord().getY() == newCoord.getY()){
@@ -44,6 +44,7 @@ public class MainCharacter {
 
         if(isAdjacent) {
             this.currentLocation = adjLocation;
+            this.currentLocation.describe(); // added by Claire on 12/4/2025
         } else {
             throw new RuntimeException("You can't go this way!");
         }

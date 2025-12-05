@@ -19,16 +19,17 @@ public class GameTest {
 
     @Test
     public void testLocationConstructorAndGetCoord(){
-        Location l = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>(), new ArrayList<Location>());
+        Location l = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>());
         assertEquals("X: 0 Y: 0","X: "+ l.getCoord().getX() + " Y: " + l.getCoord().getY());
     }
 
     @Test
     public void testLocationGetAdjLocation(){
-        Location l = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>(), new ArrayList<Location>());
+        Location l = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>());
         ArrayList<Location> locations = new ArrayList<>();
         locations.add(l);
-        Location jungle = new Location("Jungle", "You are in the Jungle", new Coordinate(0,1), new ArrayList<Item>(), locations);
+        Location jungle = new Location("Jungle", "You are in the Jungle", new Coordinate(0,1), new ArrayList<Item>());
+        jungle.addLocation(l); // add location works
         assertEquals(locations, jungle.getAdjLocations());
     }
 
@@ -38,7 +39,7 @@ public class GameTest {
 
     public static void main(String[] args) {
 
-        Location l2 = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>(), new ArrayList<Location>());
+        Location l2 = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>());
         MainCharacter abby = new MainCharacter(l2);
 
         //test Item Describe Method
@@ -49,7 +50,7 @@ public class GameTest {
         //testing add item, remove item, and print items
 
         Stick stick2 = new Stick("STICK2", "Its a stick");
-        Location l = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>(), new ArrayList<Location>());
+        Location l = new Location("Beach", "You are at North Beach", new Coordinate(0,0), new ArrayList<Item>());
         
         abby.collect(stick);
         abby.printInventory();
