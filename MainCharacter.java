@@ -96,7 +96,7 @@ public class MainCharacter {
     public void collect(Item i) {
         this.currentLocation.removeItem(i);
 
-        if (!this.inventory.contains(i)) {
+        if (!this.inventory.contains(i) && i.getCollectable()) {
             this.inventory.add(i);
             // update counters based on item type
             if (i instanceof Stick) {
@@ -106,6 +106,8 @@ public class MainCharacter {
             } else if (i instanceof Hammer) {
                 numHammers++;
             }
+        } else if (!this.inventory.contains(i) && !i.getCollectable()){
+            throw new RuntimeException("You can't collect that! It's too heavy.");
         } else {
             throw new RuntimeException(i.getName() + " is alread in your inventory. You cannot add an item that is already in your inventory");
         }
