@@ -132,10 +132,13 @@ public class MainCharacter {
 
         // update counters based on concrete item type
             if (i instanceof Stick) {
+                System.out.println("You dropped " + i.getName());
                 numSticks--;
             } else if (i instanceof Nail) {
+                System.out.println("You dropped " + i.getName());
                 numNails--;
             } else if (i instanceof Hammer) {
+                System.out.println("You dropped " + i.getName());
                 numHammers--;
             }
 
