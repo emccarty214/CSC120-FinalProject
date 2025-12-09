@@ -46,6 +46,8 @@ public class Main {
     public static void main(String[] args) {
         // This is a "flag" to let us know when the loop should end
         boolean stillPlaying = true;
+
+        //Make sure this number is less than or equal to the total number of sticks on the map
         int sticksForSuccess = 2;
 
         // We'll use this to get input from the user.
@@ -63,7 +65,7 @@ public class Main {
         
         //Creating map
         Location northBeach = new Location("North Beach", "You are standing on a nice sandy Beach, there is a lighthouse in the distance", new Coordinate(0,0), new ArrayList<Item>());
-        Location jungle1 = new Location("The Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(0,-1), new ArrayList<Item>());
+        Location jungle1 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(0,-1), new ArrayList<Item>());
 
         northBeach.addItem(stick1);
         northBeach.addItem(boat);
@@ -168,7 +170,7 @@ public class Main {
                 }
             }
 
-            if(mc.numSticks >=2){
+            if(mc.numSticks >=sticksForSuccess){
                 stillPlaying = false;
             }
         } while (stillPlaying);

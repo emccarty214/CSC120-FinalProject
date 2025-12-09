@@ -100,10 +100,13 @@ public class MainCharacter {
             this.inventory.add(i);
             // update counters based on item type
             if (i instanceof Stick) {
+                System.out.println("You picked up " + i.getName());
                 numSticks++;
             } else if (i instanceof Nail) {
+                System.out.println("You picked up " + i.getName());
                 numNails++;
             } else if (i instanceof Hammer) {
+                System.out.println("You picked up " + i.getName());
                 numHammers++;
             }
         } else if (!this.inventory.contains(i) && !i.getCollectable()){
@@ -147,12 +150,11 @@ public class MainCharacter {
         if(this.inventory.isEmpty()){
             System.out.println("There are no items in your inventory");
         } else {
-            System.out.println("----------");
-            System.out.println("INVENTORY");
-            System.out.println("Sticks: " + numSticks);
-            System.out.println("Nails: " + numNails);
-            System.out.println("Hammers: " + numHammers);
-            System.out.println("----------");
+            System.out.println("-------------");
+            for(Item i : this.inventory){
+                System.out.println(i.getName());
+            }
+            System.out.println("-------------");
         }
     }
     

@@ -43,7 +43,7 @@ public class Location {
      * Prints out the name and description of a location
      */
     public void describe() {
-        System.out.println("Welcome to the" + this.name);
+        System.out.println("Welcome to the " + this.name);
         System.out.println(this.description);
     }
 
