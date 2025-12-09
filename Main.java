@@ -56,9 +56,15 @@ public class Main {
         // Storage for user's responses
         String userResponse = "";
 
+        //current timer and timer max, this will count how many turns they have taken. If they take too many they lose
+        int currentTime = 0;
+        int timerMax= 50;
+
+        boolean winOrLose = true;
+
         //Beach items
         Stick stick1 = new Stick("BENDY STICK", "This is a bendy stick, you can pick it up if you want.");
-        Boat boat = new Boat("OLD BOAT", "A rickety old boat. You see that there is a hole \nin its side. Maybe you can fix it?");
+        Boat boat = new Boat("OLD BOAT", "A rickety old boat. You see that there is a hole \nin its side. Maybe you can fix it?", sticksForSuccess);
 
         //Jungle1 Items
         Stick stick2 = new Stick("BIG STICK", "This is a big stick, you can pick it up if you want");
@@ -95,6 +101,7 @@ public class Main {
 
         jungle1.addItem(stick2);
 
+        //Form map
         northBeach.addLocation(jungle1);
         jungle1.addLocation(northBeach);
 
@@ -105,10 +112,11 @@ public class Main {
         System.out.println("******************");
         System.out.println("WELCOME TO THE GAME"); //Figure out how to format dialogue better
         System.out.println("You wake up with a start. You're lying on a beach, stranded. \nYou stand up, wiping the sand from your clothes and look around. \nYou see that your BOAT is lying on the beach about 100 yards from you, \nand there is a Jungle to the South.");
+        System.out.println("The sun is high in the sky... for now");
         System.out.println("******************");
 
         // Instructions are sometimes helpful
-        System.out.println("Feel free to WALK around, LOOK AT, or PICK UP things.");
+        System.out.println("Feel free to WALK around, LOOK AT, or PICK UP things. Type HELP if you need help.");
 
         // The do...while structure means we execute the body of the loop once before checking the stopping condition
         do {
@@ -143,7 +151,7 @@ public class Main {
                 System.out.println(" Or in your surroundings: ");
                 mc.currentLocation.printItems();
                 try {
-                    userResponse = userInput.nextLine();
+                    userResponse = " " + userInput.nextLine().toUpperCase() + " ";
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     continue; // has them try again
@@ -170,7 +178,7 @@ public class Main {
                 System.out.println("What would you like to pick up? Around you there are: ");
                 mc.currentLocation.printItems();
                 try {
-                    userResponse = userInput.nextLine();
+                    userResponse = " " + userInput.nextLine().toUpperCase() + " ";
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     continue; // has them try again
@@ -182,6 +190,7 @@ public class Main {
                         try {
                             mc.collect(i);
                         } catch (Exception e) {
+                            mc.currentLocation.addItem(i); //added so item remains in location
                             System.out.println(e.getMessage());
                         }
                         itemSearched = true;
@@ -195,7 +204,7 @@ public class Main {
                 System.out.println("What would you like to look at? Your options are: \n Inventory:");
                 mc.printInventory();
                 try {
-                    userResponse = userInput.nextLine();
+                    userResponse = " " + userInput.nextLine().toUpperCase() + " ";
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     continue; // has them try again
@@ -211,6 +220,37 @@ public class Main {
                 if (itemDropped == false){
                     System.out.println("Sorry, I don't understand.");
                 }
+            } else if (userResponse.equals("use")){
+                System.out.println("What would you like to use/interact with? Your options are: \n Inventory:");
+                mc.printInventory();
+                System.out.println(" Or in your surroundings: ");
+                mc.currentLocation.printItems();
+                try {
+                    userResponse = " " + userInput.nextLine().toUpperCase() + " ";
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    continue; // has them try again
+                }
+                boolean itemUsed = false;
+                for (Item i : mc.inventory){
+                    if (userResponse.contains(i.getName())){
+                        i.use();
+                        itemUsed = true;
+                        break; //exits this for loop
+                    }
+                }
+                for (Item i : mc.currentLocation.getItems()){
+                    if (userResponse.contains(i.getName())){
+                        i.use();
+                        itemUsed = true;
+                        break; //exits this for loop
+                    }
+                }
+                if (itemUsed == false){
+                    System.out.println("Sorry, I don't understand.");
+                }
+            } else if(userResponse.equals("inventory")){
+                mc.printInventory();
             } else if (userResponse.equals("help")){
                 System.out.println("---------------------");
                 System.out.println("Commands you can run:");
@@ -222,11 +262,21 @@ public class Main {
                 System.out.println(" LOOK AT: Displays what items are in your inventory and around you");
                 System.out.println(" PICK UP: Picks up an item");
                 System.out.println(" DROP: Drops an item");
+                System.out.println(" USE: Interact with or use an item");
+                System.out.println("    - example:  USE BOAT");
+                System.out.println("    - example:  USE STICK");
+                System.out.println(" INVENTORY: View your current inventory.");
                 System.out.println("---------------------");
             }
 
-            if(mc.getNumSticks() >=sticksForSuccess){
+            if(mc.getNumSticks() >=sticksForSuccess && mc.currentLocation.equals(northBeach) || currentTime>= timerMax){
                 stillPlaying = false;
+                if(currentTime>= timerMax){
+                    winOrLose = false;
+                }
+            }
+            if(stillPlaying){
+                currentTime++;
             }
 
         } while (stillPlaying);
@@ -235,10 +285,13 @@ public class Main {
         userInput.close();
 
         // Once you exit the loop, you may need to deal with various possible stopping conditions
-        if (mc.getNumSticks() >=2) {
-            System.out.println("You won! You collected enough sticks to escape the island");
+        if (mc.getNumSticks() >=2 && winOrLose) {
+            System.out.println("You won!");
+            System.out.println("Back on the beach where it all began, having collected enough materials to fix your boat, you escape the island!");
+            
+            
         } else { // userResponse.equals("LOSE")
-            System.out.println("Fail Statement: ToDo Replace");
+            System.out.println("You took too long and it got dark. While you were hopelessly wandering, a Tiger came and ate you. You lose.");
         }
 
 
@@ -266,9 +319,19 @@ public class Main {
             return "pick up";
         } else if (input.contains(" DROP ")){
             return "drop";
-        } else if (input.contains(" HELP")){
+        } else if (input.contains(" HELP ")){
             return "help";
-        } else {
+        } else if (input.contains(" Y ") || input.contains(" YES ")){
+            return "yes";
+        } else if (input.contains(" N ") || input.contains(" NO ")){
+            return "no";
+        } else if(input.contains(" INTERACT ") || input.contains(" USE ")){
+            return "use";
+        } else if(input.contains(" INVENTORY ")){
+            return "inventory";
+        }
+        
+        else {
             throw new RuntimeException("I don't understand what you are trying to do. Please try again.");
         }
     }

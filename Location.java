@@ -45,6 +45,8 @@ public class Location {
     public void describe() {
         System.out.println("Welcome to the " + this.name);
         System.out.println(this.description);
+        System.out.println("On the ground there is: ");
+        this.printItems();
     }
 
 
