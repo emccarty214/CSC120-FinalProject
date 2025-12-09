@@ -2,9 +2,8 @@ public class Boat extends Item{
 
     private Boolean isCompleted;
     public Boat(){
-        super();
+        super("UNKNOWN", "UNKNOWN", false);
         this.isCompleted = false;
-        super.isCollectable = false;
     }
 
     public Boat(String name, String description){

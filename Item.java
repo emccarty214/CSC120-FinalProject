@@ -2,7 +2,7 @@ public abstract class Item{
 
     private String name;
     private String description;
-    protected boolean isCollectable;
+    private boolean isCollectable;
 
     public Item(){
         this.name = "UNKNOWN";
@@ -23,6 +23,13 @@ public abstract class Item{
     public String getName() {
         return this.name;
     }
+
+    public boolean getCollectable() {
+        return this.isCollectable;
+    }
+
+    
+    
 
     public abstract void use();
 
