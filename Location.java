@@ -71,7 +71,7 @@ public class Location {
      * @param l the adjacent location you want to add
      */
     public void addLocation(Location l) {
-        if (this.adjacentLocations.contains(l)) { // if adjacent locations CONTAINS the location already, THROW EXCEPTION
+        if (!this.adjacentLocations.contains(l) && l.getCoord().getX() ) { // if adjacent locations CONTAINS the location already, THROW EXCEPTION
             throw new RuntimeException(l.getName() + " is already in the list of adjacent locations for " + this.name + ". You cannot add an item that is already in this location");
         } else { // if adjacent locations DOES NOT CONTAIN the location, ADD it
             this.adjacentLocations.add(l);

@@ -6,6 +6,9 @@ public class Main {
 
     // Note from Claire: We might need to add addAdjLocation() to Location so we can intialize
     // everything properly
+    // take ArrayList<Location> adjacentLocations out of constructer and add some add and remove methods for it instead
+
+    // For Location Class add a printAdjLocations method
 
 
     //This is where our game loop will go.
