@@ -48,7 +48,11 @@ public class Main {
         boolean stillPlaying = true;
 
         //Make sure this number is less than or equal to the total number of sticks on the map
-        int sticksForSuccess = 2;
+        int sticksForSuccess = 6;
+        //Make sure this number is less than or equal to the total number of nails on the map
+        int nailsForSuccess = 3;
+        //Make sure this number is less than or equal to the total number of hammers on the map
+        int hammersForSuccess = 1;
 
         // We'll use this to get input from the user.
         Scanner userInput = new Scanner(System.in);
@@ -58,13 +62,13 @@ public class Main {
 
         //current timer and timer max, this will count how many turns they have taken. If they take too many they lose
         int currentTime = 0;
-        int timerMax= 50;
+        int timerMax= 40;
 
         boolean winOrLose = true;
 
         //Beach items
         Stick stick1 = new Stick("BENDY STICK", "This is a bendy stick, you can pick it up if you want.");
-        Boat boat = new Boat("OLD BOAT", "A rickety old boat. You see that there is a hole \nin its side. Maybe you can fix it?", sticksForSuccess);
+        Boat boat = new Boat("OLD BOAT", "A rickety old boat. You see that there is a hole \nin its side. Maybe you can fix it?", sticksForSuccess, nailsForSuccess,hammersForSuccess);
 
         //Jungle1 Items
         Stick stick2 = new Stick("BIG STICK", "This is a big stick, you can pick it up if you want");
@@ -88,22 +92,66 @@ public class Main {
         Nail nail1 = new Nail("RUSTY NAIL", "This is a rusty nail. Do you have your tetanus shot!? You can pick it up (at your own risk)");
         Nail nail2 = new Nail("FANCY NAIL", "This is a fancy nail. You can pick it up if you want");
 
-        // Sount Beach Items
+        // South Beach Items
         Nail nail3 = new Nail("LONG NAIL", "This is a long nail. You can pick it up if you want");
 
 
         //Creating map
-        Location northBeach = new Location("North Beach", "You are standing on a nice sandy Beach, there is a lighthouse in the distance", new Coordinate(0,0), new ArrayList<Item>());
+        Location northBeach = new Location("North Beach", "You are standing on a nice sandy Beach, there is a lighthouse in the distance. There is a path to the South.", new Coordinate(0,0), new ArrayList<Item>());
         Location jungle1 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(0,-1), new ArrayList<Item>());
+        Location jungle2 = new Location("Jungle", "You are standing in a sparse Jungle, there are paths to the East and South", new Coordinate(-1,-1), new ArrayList<Item>());
+        //Jungle 3 is adjacent to the village, but intentionally does not connect to it.
+        Location jungle3 = new Location("Jungle", "You are standing in a thick Jungle, there is a path to the West", new Coordinate(1,-1), new ArrayList<Item>());
+        Location jungle4 = new Location("Jungle", "You are standing in a thick Jungle, there are paths to the East and North", new Coordinate(-1,-2), new ArrayList<Item>());
+        Location jungle5 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(0,-2), new ArrayList<Item>());
+        
+        Location village = new Location("Deserted Village", "You see a deserted village in front of you. There are a few decrepid houses, but no recent signs of life", new Coordinate(1,-2), new ArrayList<Item>());
+        Location southBeach =  new Location("South Beach", "You are standing on a very rocky Beach and you see the vast expanse of the ocean in front of you. There is a path to the North.", new Coordinate(0,-3), new ArrayList<Item>());
+
 
         northBeach.addItem(stick1);
         northBeach.addItem(boat);
 
         jungle1.addItem(stick2);
+        jungle1.addItem(stick3);
+
+        jungle2.addItem(stick4);
+
+        jungle4.addItem(stick5);
+        jungle4.addItem(stick6);
+
+        jungle5.addItem(stick7);
+
+        village.addItem(hammer);
+        village.addItem(nail1);
+        village.addItem(nail2);
+
+        southBeach.addItem(nail3);
 
         //Form map
         northBeach.addLocation(jungle1);
         jungle1.addLocation(northBeach);
+
+        jungle1.addLocation(jungle2);
+        jungle2.addLocation(jungle1);
+
+        jungle1.addLocation(jungle3);
+        jungle3.addLocation(jungle1);
+
+        jungle1.addLocation(jungle5);
+        jungle5.addLocation(jungle1);
+
+        jungle2.addLocation(jungle4);
+        jungle4.addLocation(jungle2);
+
+        jungle4.addLocation(jungle5);
+        jungle5.addLocation(jungle4);
+
+        jungle5.addLocation(village);
+        village.addLocation(jungle5);
+
+        jungle5.addLocation(southBeach);
+        southBeach.addLocation(jungle5);
 
 
         MainCharacter mc= new MainCharacter(northBeach);
@@ -269,7 +317,7 @@ public class Main {
                 System.out.println("---------------------");
             }
 
-            if(mc.getNumSticks() >=sticksForSuccess && mc.currentLocation.equals(northBeach) || currentTime>= timerMax){
+            if((mc.getNumSticks() >=sticksForSuccess && mc.getNumNails() >=nailsForSuccess && mc.getHasHammer() && mc.currentLocation.equals(northBeach)) || currentTime>= timerMax){
                 stillPlaying = false;
                 if(currentTime>= timerMax){
                     winOrLose = false;
@@ -291,7 +339,7 @@ public class Main {
             
             
         } else { // userResponse.equals("LOSE")
-            System.out.println("You took too long and it got dark. While you were hopelessly wandering, a Tiger came and ate you. You lose.");
+            System.out.println("You took too long searching and it got dark. While you were hopelessly wandering, a Tiger came and ate you. You lose.");
         }
 
 
