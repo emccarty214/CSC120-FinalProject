@@ -92,7 +92,6 @@ public class GameTest {
             System.out.println(e.getMessage());
         }
 
-        Location adj = new Location("Adjacent", "blah blah", new Coordinate(2, 3), new ArrayList<Item>() , new ArrayList<Location>());
         //no error
         try {
             l.addItem(stick);
