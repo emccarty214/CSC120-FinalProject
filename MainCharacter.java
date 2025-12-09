@@ -8,16 +8,28 @@ public class MainCharacter {
 
     Location currentLocation;
     ArrayList<Item> inventory;
-    public int numSticks;
-    int numNails;
-    int numHammers;
+    private int numSticks;
+    private int numNails;
+    private boolean hasHammer;
 
     public MainCharacter(Location initialLocation) {
         this.currentLocation=initialLocation;
         this.inventory = new ArrayList<Item>();
         this.numSticks = 0;
         this.numNails = 0;
-        this.numHammers = 0;
+        this.hasHammer = false;
+    }
+
+    public int getNumSticks(){
+        return this.numSticks;
+    }
+
+    public int getNumNails(){
+        return this.numNails;
+    }
+
+    public boolean getHasHammer(){
+        return this.hasHammer;
     }
 
     /**
@@ -107,7 +119,7 @@ public class MainCharacter {
                 numNails++;
             } else if (i instanceof Hammer) {
                 System.out.println("You picked up " + i.getName());
-                numHammers++;
+                hasHammer = true;
             }
         } else if (!this.inventory.contains(i) && !i.getCollectable()){
             throw new RuntimeException("You can't collect that! It's too heavy.");
@@ -139,7 +151,7 @@ public class MainCharacter {
                 numNails--;
             } else if (i instanceof Hammer) {
                 System.out.println("You dropped " + i.getName());
-                numHammers--;
+                hasHammer = false;
             }
 
         this.currentLocation.addItem(i);

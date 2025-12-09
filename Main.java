@@ -225,16 +225,17 @@ public class Main {
                 System.out.println("---------------------");
             }
 
-            if(mc.numSticks >=sticksForSuccess){
+            if(mc.getNumSticks() >=sticksForSuccess){
                 stillPlaying = false;
             }
+
         } while (stillPlaying);
 
         // Tidy up
         userInput.close();
 
         // Once you exit the loop, you may need to deal with various possible stopping conditions
-        if (mc.numSticks >=2) {
+        if (mc.getNumSticks() >=2) {
             System.out.println("You won! You collected enough sticks to escape the island");
         } else { // userResponse.equals("LOSE")
             System.out.println("Fail Statement: ToDo Replace");

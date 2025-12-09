@@ -1,5 +1,6 @@
 public class Boat extends Item{
 
+    private int sticksForSuccess = 2;
     private Boolean isCompleted;
     public Boat(){
         super("UNKNOWN", "UNKNOWN", false);
@@ -12,7 +13,7 @@ public class Boat extends Item{
     }
 
     public void use(){
-
+       
     }
 
     /* Some code */
