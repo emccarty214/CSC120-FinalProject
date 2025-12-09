@@ -6,7 +6,7 @@ public class Stick extends Item{
     }
 
     public Stick(String name, String description){
-        super(name, description);
+        super(name, description, true);
     }
 
     public void use(){

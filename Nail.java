@@ -6,7 +6,7 @@ public class Nail extends Item{
     }
 
     public Nail(String name, String description){
-        super(name, description);
+        super(name, description, true);
     }
 
     public void use(){

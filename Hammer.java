@@ -6,7 +6,7 @@ public class Hammer extends Item{
     }
 
     public Hammer(String name, String description){
-        super(name, description);
+        super(name, description, true);
     }
 
     public void use(){

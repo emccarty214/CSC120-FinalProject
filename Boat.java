@@ -4,10 +4,11 @@ public class Boat extends Item{
     public Boat(){
         super();
         this.isCompleted = false;
+        super.isCollectable = false;
     }
 
     public Boat(String name, String description){
-        super(name, description);
+        super(name, description, false);
         this.isCompleted = false;
     }
 
