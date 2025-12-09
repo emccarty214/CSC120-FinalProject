@@ -168,6 +168,26 @@ public class Main {
                 if (itemSearched == false){
                     System.out.println("Sorry, I don't understand.");
                 }
+            } else if (userResponse.equals("drop")){
+                System.out.println("What would you like to look at? Your options are: \n Inventory:");
+                mc.printInventory();
+                try {
+                    userResponse = userInput.nextLine();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    continue; // has them try again
+                }
+                boolean itemDropped = false;
+                for (Item i : mc.inventory){
+                    if (userResponse.contains(i.getName())){
+                        mc.drop(i);
+                        itemDropped = true;
+                        break; //exits this for loop
+                    }
+                }
+                if (itemDropped == false){
+                    System.out.println("Sorry, I don't understand.");
+                }
             }
 
             if(mc.numSticks >=sticksForSuccess){
@@ -206,8 +226,10 @@ public class Main {
             return "look around";
         } else if (input.contains(" LOOK AT ")){
             return "look at";
-        } else if (input.contains(" PICK UP")){
+        } else if (input.contains(" PICK UP ")){
             return "pick up";
+        } else if (input.contains(" DROP ")){
+            return "drop";
         } else {
             throw new RuntimeException("I don't understand what you are trying to do. Please try again.");
         }
