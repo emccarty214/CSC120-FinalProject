@@ -62,7 +62,30 @@ public class Main {
 
         //Jungle1 Items
         Stick stick2 = new Stick("BIG STICK", "This is a big stick, you can pick it up if you want");
+        Stick stick3 = new Stick("GREEN STICK", "This is a green stick, you can pick it up if you want");
         
+        // Jungle 2 Items
+        Stick stick4 = new Stick("COOL STICK", "This is a really cool stick, you can pick it up if you want");
+
+        // Jungle 3 Items
+        // nothing
+
+        // Jungle 4 Items
+        Stick stick5 = new Stick("RED STICK", "This is a red stick, you can pick it up if you want");
+        Stick stick6 = new Stick("FRAGILE STICK", "This is a fragile stick, you can pick it up if you want. Don't break it!");
+
+        // Jungle 5 Items
+        Stick stick7 = new Stick("RAINBOW STICK", "This is a rainbow stick, you can pick it up if you want");
+
+        // Villiage Items
+        Hammer hammer = new Hammer("THE HAMMER", "This is the hammer. You might need it.");
+        Nail nail1 = new Nail("RUSTY NAIL", "This is a rusty nail. Do you have your tetanus shot!? You can pick it up (at your own risk)");
+        Nail nail2 = new Nail("FANCY NAIL", "This is a fancy nail. You can pick it up if you want");
+
+        // Sount Beach Items
+        Nail nail3 = new Nail("LONG NAIL", "This is a long nail. You can pick it up if you want");
+
+
         //Creating map
         Location northBeach = new Location("North Beach", "You are standing on a nice sandy Beach, there is a lighthouse in the distance", new Coordinate(0,0), new ArrayList<Item>());
         Location jungle1 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(0,-1), new ArrayList<Item>());
