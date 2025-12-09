@@ -211,6 +211,18 @@ public class Main {
                 if (itemDropped == false){
                     System.out.println("Sorry, I don't understand.");
                 }
+            } else if (userResponse.equals("help")){
+                System.out.println("---------------------");
+                System.out.println("Commands you can run:");
+                System.out.println(" HELP: Displays this message");
+                System.out.println(" MOVE + a direction: Walk in a direction");
+                System.out.println("    - example: MOVE NORTH");
+                System.out.println("    - example: MOVE SOUTH");
+                System.out.println(" LOOK AROUND: Shows what's around you");
+                System.out.println(" LOOK AT: Displays what items are in your inventory and around you");
+                System.out.println(" PICK UP: Picks up an item");
+                System.out.println(" DROP: Drops an item");
+                System.out.println("---------------------");
             }
 
             if(mc.numSticks >=sticksForSuccess){
@@ -253,6 +265,8 @@ public class Main {
             return "pick up";
         } else if (input.contains(" DROP ")){
             return "drop";
+        } else if (input.contains(" HELP")){
+            return "help";
         } else {
             throw new RuntimeException("I don't understand what you are trying to do. Please try again.");
         }
