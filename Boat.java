@@ -2,7 +2,7 @@ public class Boat extends Item{
 
     private Boolean isCompleted;
     public Boat(){
-        super();
+        super("","", false);
         this.isCompleted = false;
         super.isCollectable = false;
     }
