@@ -8,10 +8,16 @@ public class MainCharacter {
 
     Location currentLocation;
     ArrayList<Item> inventory;
+    public int numSticks;
+    int numNails;
+    int numHammers;
 
     public MainCharacter(Location initialLocation) {
-        currentLocation=initialLocation;
-        inventory = new ArrayList<Item>();
+        this.currentLocation=initialLocation;
+        this.inventory = new ArrayList<Item>();
+        this.numSticks = 0;
+        this.numNails = 0;
+        this.numHammers = 0;
     }
 
     /**
@@ -26,7 +32,7 @@ public class MainCharacter {
         ArrayList<Location> adjLoc = this.currentLocation.getAdjLocations();
 
         boolean isAdjacent = false;
-        Location adjLocation = new Location("Blank", "Blank", new Coordinate(-1000,-1000), new ArrayList<Item>(), new ArrayList<Location>());
+        Location adjLocation = new Location("Blank", "Blank", new Coordinate(-1000,-1000), new ArrayList<Item>());
 
         for (Location l: adjLoc) {
             if(l.getCoord().getX() == newCoord.getX() && l.getCoord().getY() == newCoord.getY()){
@@ -38,6 +44,7 @@ public class MainCharacter {
 
         if(isAdjacent) {
             this.currentLocation = adjLocation;
+            this.currentLocation.describe(); // added by Claire on 12/4/2025
         } else {
             throw new RuntimeException("You can't go this way!");
         }
@@ -91,6 +98,14 @@ public class MainCharacter {
 
         if (!this.inventory.contains(i)) {
             this.inventory.add(i);
+            // update counters based on item type
+            if (i instanceof Stick) {
+                numSticks++;
+            } else if (i instanceof Nail) {
+                numNails++;
+            } else if (i instanceof Hammer) {
+                numHammers++;
+            }
         } else {
             throw new RuntimeException(i.getName() + " is alread in your inventory. You cannot add an item that is already in your inventory");
         }
@@ -110,6 +125,15 @@ public class MainCharacter {
             throw new RuntimeException ("There is no " + i.getName() + " currently in your Inventory. You cannot remove an item that does not exist");
         }
 
+        // update counters based on concrete item type
+            if (i instanceof Stick) {
+                numSticks--;
+            } else if (i instanceof Nail) {
+                numNails--;
+            } else if (i instanceof Hammer) {
+                numHammers--;
+            }
+
         this.currentLocation.addItem(i);
     }
 
@@ -121,10 +145,12 @@ public class MainCharacter {
         if(this.inventory.isEmpty()){
             System.out.println("There are no items in your inventory");
         } else {
-            System.out.println("Inventory: ");
-            for(Item i : inventory){
-                System.out.println(i.getName());
-            }
+            System.out.println("----------");
+            System.out.println("INVENTORY");
+            System.out.println("Sticks: " + numSticks);
+            System.out.println("Nails: " + numNails);
+            System.out.println("Hammers: " + numHammers);
+            System.out.println("----------");
         }
     }
     

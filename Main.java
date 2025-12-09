@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
 
     //Note from Claire: When we are creating sticks, as repetitive as it may be, we should create
@@ -39,6 +42,174 @@ public class Main {
                 // on the ground, and a possible path to the South and East.
         // There is more that needs to be written, this is just to give us an idea of some location
             // descriptions and how we might want to format things
+
+    public static void main(String[] args) {
+        // This is a "flag" to let us know when the loop should end
+        boolean stillPlaying = true;
+        int sticksForSuccess = 2;
+
+        // We'll use this to get input from the user.
+        Scanner userInput = new Scanner(System.in);
+
+        // Storage for user's responses
+        String userResponse = "";
+
+        //Beach items
+        Stick stick1 = new Stick("BENDY STICK", "This is a bendy stick, you can pick it up if you want.");
+        Boat boat = new Boat("OLD BOAT", "A rickety old boat. You see that there is a hole \nin its side. Maybe you can fix it?");
+
+        //Jungle1 Items
+        Stick stick2 = new Stick("BIG STICK", "This is a big stick, you can pick it up if you want");
+        
+        //Creating map
+        Location northBeach = new Location("North Beach", "You are standing on a nice sandy Beach, there is a lighthouse in the distance", new Coordinate(0,0), new ArrayList<Item>());
+        Location jungle1 = new Location("The Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(0,-1), new ArrayList<Item>());
+
+        northBeach.addItem(stick1);
+        northBeach.addItem(boat);
+
+        jungle1.addItem(stick2);
+
+        northBeach.addLocation(jungle1);
+        jungle1.addLocation(northBeach);
+
+
+        MainCharacter mc= new MainCharacter(northBeach);
+
+        // This could be replaced with a more interesting opening
+        System.out.println("******************");
+        System.out.println("WELCOME TO THE GAME"); //Figure out how to format dialogue better
+        System.out.println("You wake up with a start. You're lying on a beach, stranded. \nYou stand up, wiping the sand from your clothes and look around. \nYou see that your BOAT is lying on the beach about 100 yards from you, \nand there is a Jungle to the South.");
+        System.out.println("******************");
+
+        // Instructions are sometimes helpful
+        System.out.println("Feel free to WALK around, LOOK AT, or PICK UP things.");
+
+        // The do...while structure means we execute the body of the loop once before checking the stopping condition
+        do {
+            // ************************************************
+            // The stuff that happens in your game will go here
+            //  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓
+            System.out.println("What would you like to do?");
+            try {
+                userResponse = parseInput(userInput.nextLine().toUpperCase());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue; // has them try again
+            }
+            
+
+            // ***********************************************************************
+            // And as the player interacts, you'll check to see if the game should end
+            //  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓
+            if (userResponse.equals("north") || userResponse.equals("south") || userResponse.equals("east") || userResponse.equals("west")) {
+                try {
+                    mc.move(userResponse);
+                    
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+            } else if (userResponse.equals("look around")){
+                mc.currentLocation.describe();
+            } else if (userResponse.equals("look at")){
+                System.out.println("What would you like to look at? Your options are: \n Inventory:");
+                mc.printInventory();
+                System.out.println(" Or in your surroundings: ");
+                mc.currentLocation.printItems();
+                try {
+                    userResponse = userInput.nextLine();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    continue; // has them try again
+                }
+                boolean itemDescribed = false;
+                for (Item i : mc.inventory){
+                    if (userResponse.contains(i.getName())){
+                        i.describe();
+                        itemDescribed = true;
+                        break; //exits this for loop
+                    }
+                }
+                for (Item i : mc.currentLocation.getItems()){
+                    if (userResponse.contains(i.getName())){
+                        i.describe();
+                        itemDescribed = true;
+                        break; //exits this for loop
+                    }
+                }
+                if (itemDescribed == false){
+                    System.out.println("Sorry, I don't understand.");
+                }
+            } else if (userResponse.equals("pick up")){
+                System.out.println("What would you like to pick up? Around you there are: ");
+                mc.currentLocation.printItems();
+                try {
+                    userResponse = userInput.nextLine();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    continue; // has them try again
+                }
+                boolean itemSearched = false;
+                
+                for (Item i : mc.currentLocation.getItems()){
+                    if (userResponse.contains(i.getName())){
+                        try {
+                            mc.collect(i);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                        itemSearched = true;
+                        break; //exits this for loop
+                    }
+                }
+                if (itemSearched == false){
+                    System.out.println("Sorry, I don't understand.");
+                }
+            }
+
+            if(mc.numSticks >=2){
+                stillPlaying = false;
+            }
+        } while (stillPlaying);
+
+        // Tidy up
+        userInput.close();
+
+        // Once you exit the loop, you may need to deal with various possible stopping conditions
+        if (mc.numSticks >=2) {
+            System.out.println("You won! You collected enough sticks to escape the island");
+        } else { // userResponse.equals("LOSE")
+            System.out.println("Fail Statement: ToDo Replace");
+        }
+
+
+    }
+
+    private static String parseInput(String str){
+        String input = " " + str + " ";
+        if(input.contains(" MOVE ") || input.contains(" WALK ") || input.contains(" RUN ") || input.contains(" GO ")) {
+            if(input.contains("NORTH")) {
+                return "north";
+            } else if (input.contains("SOUTH")){
+                return "south";
+            } else if (input.contains("EAST")){
+                return "east";
+            } else if (input.contains("WEST")){
+                return "west";
+            } else {
+                throw new RuntimeException("Not a valid direction, please try again.");
+            }
+        } else if (input.contains(" LOOK AROUND ")){
+            return "look around";
+        } else if (input.contains(" LOOK AT ")){
+            return "look at";
+        } else if (input.contains(" PICK UP")){
+            return "pick up";
+        } else {
+            throw new RuntimeException("I don't understand what you are trying to do. Please try again.");
+        }
+    }
 
     
 }

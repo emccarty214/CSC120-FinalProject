@@ -1,4 +1,8 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
 
 public class Location {
     // Attributes:
@@ -7,6 +11,7 @@ public class Location {
     private Coordinate coordinate; // locatioin coordinates on map 
     private ArrayList<Item> items; // list of items in this location
     private ArrayList<Location> adjacentLocations; // list of adjacent locations
+    private HashMap<Coordinate, Boolean> adjCoordinates;
     
 
     /** 
@@ -17,12 +22,19 @@ public class Location {
      * @param items list of items in location
      * @param adjloc list of adjacent places to location
      */
-    public Location(String name, String description, Coordinate coordinate, ArrayList<Item> items, ArrayList<Location> adjloc) {
+    public Location(String name, String description, Coordinate coordinate, ArrayList<Item> items) {
         this.name = name;
         this.description = description;
         this.coordinate = coordinate;
         this.items = items;
-        this.adjacentLocations = adjloc;
+        this.adjacentLocations = new ArrayList<>();
+        //Setting up adjacent coordinates
+        HashMap<Coordinate, Boolean> coords = new HashMap<>();
+        coords.put(new Coordinate(coordinate.getX(),coordinate.getY()+1), false);
+        coords.put(new Coordinate(coordinate.getX(),coordinate.getY()-1), false);
+        coords.put(new Coordinate(coordinate.getX()+1,coordinate.getY()), false);
+        coords.put(new Coordinate(coordinate.getX()-1,coordinate.getY()), false);
+        this.adjCoordinates = coords;
     }
 
 
@@ -71,11 +83,30 @@ public class Location {
      * @param l the adjacent location you want to add
      */
     public void addLocation(Location l) {
-        if (!this.adjacentLocations.contains(l) && l.getCoord().getX() ) { // if adjacent locations CONTAINS the location already, THROW EXCEPTION
-            throw new RuntimeException(l.getName() + " is already in the list of adjacent locations for " + this.name + ". You cannot add an item that is already in this location");
-        } else { // if adjacent locations DOES NOT CONTAIN the location, ADD it
-            this.adjacentLocations.add(l);
-        }    
+        Set<Coordinate> setAdjCoords = adjCoordinates.keySet();
+        boolean isAdjacent = false;
+        for (Coordinate coord : setAdjCoords) {
+            if (coord.equals(l.getCoord())) {
+                isAdjacent = true;
+                if (adjCoordinates.get(coord)){
+                    throw new RuntimeException("There is already a Location at this coordinate");
+                } else {
+                    adjacentLocations.add(l);
+                    adjCoordinates.put(coord, true);
+                }
+            }
+        }
+
+        if(!isAdjacent){
+            throw new RuntimeException("The location given is not adjacent to this location");
+        }
+
+
+        // if (this.adjacentLocations.contains(l)) { // if adjacent locations CONTAINS the location already, THROW EXCEPTION
+        //     throw new RuntimeException(l.getName() + " is already in the list of adjacent locations for " + this.name + ". You cannot add an item that is already in this location");
+        // } else { // if adjacent locations DOES NOT CONTAIN the location, ADD it
+        //     this.adjacentLocations.add(l);
+        // }   
         
     }
 
@@ -86,11 +117,31 @@ public class Location {
      * @param l location to be removed from the location's adjacent locations
      */
     public void removeLocation(Location l) {
-        if (this.adjacentLocations.contains(l)) { // if location's items CONTAINS the item, REMOVE it
-            this.adjacentLocations.remove(l);
-        } else { // if location's items DOES NOT CONTAIN the item, THROW EXCEPTION
-            throw new RuntimeException("There is no " + l.getName() + " currently adjacent to " + this.name + ". You cannot remove a location that is not in the list");
+        Set<Coordinate> setAdjCoords = adjCoordinates.keySet();
+        boolean isAdjacent = false;
+        for (Coordinate coord : setAdjCoords) {
+            if (coord.equals(l.getCoord())) {
+                isAdjacent = true;
+                if (!adjCoordinates.get(coord)){
+                    throw new RuntimeException("There is no Location at this coordinate");
+                } else {
+                    adjacentLocations.remove(l);
+                    adjCoordinates.put(coord, false);
+                }
+            }
         }
+
+        if(!isAdjacent){
+            throw new RuntimeException("The location given is not adjacent to this location");
+        }
+
+        
+        
+        // if (this.adjacentLocations.contains(l)) { // if location's items CONTAINS the item, REMOVE it
+        //     this.adjacentLocations.remove(l);
+        // } else { // if location's items DOES NOT CONTAIN the item, THROW EXCEPTION
+        //     throw new RuntimeException("There is no " + l.getName() + " currently adjacent to " + this.name + ". You cannot remove a location that is not in the list");
+        // }
      
     }
 
@@ -119,9 +170,15 @@ public class Location {
     public ArrayList<Location> getAdjLocations(){
         return this.adjacentLocations;
     }
+
+    
     
     public String getName() {
         return this.name;
+    }
+
+    public ArrayList<Item> getItems(){
+        return items;
     }
 
     
