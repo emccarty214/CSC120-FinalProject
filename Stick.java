@@ -10,7 +10,7 @@ public class Stick extends Item{
     }
 
     public void use(){
-        //Fill in later
+        System.out.println("You take a look at the stick in your hand. You think it could help you fix your boat.");
     }
     
 }

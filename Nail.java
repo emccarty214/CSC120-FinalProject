@@ -10,7 +10,7 @@ public class Nail extends Item{
     }
 
     public void use(){
-        //Fill in later
+        System.out.println("You take a look at the nail in your hand. You think it could help you fix your boat.");
     }
     
 }

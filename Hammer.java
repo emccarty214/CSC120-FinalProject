@@ -10,7 +10,7 @@ public class Hammer extends Item{
     }
 
     public void use(){
-        //Fill in later
+        System.out.println("You swing the hammer around, it does nothing at the moment");
     }
     
 }
