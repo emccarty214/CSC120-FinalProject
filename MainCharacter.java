@@ -20,6 +20,10 @@ public class MainCharacter {
         this.hasHammer = false;
     }
 
+    /**
+     * A method that returns the number of sticks in the inventory
+     * @return number sticks in inventory
+     */
     public int getNumSticks(){
         return this.numSticks;
     }

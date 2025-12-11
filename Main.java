@@ -157,21 +157,21 @@ public class Main {
         MainCharacter mc= new MainCharacter(northBeach);
 
         // This could be replaced with a more interesting opening
-        System.out.println("******************");
-        System.out.println("WELCOME TO THE GAME"); //Figure out how to format dialogue better
-        System.out.println("You wake up with a start. You're lying on a beach, stranded. \nYou stand up, wiping the sand from your clothes and look around. \nYou see that your BOAT is lying on the beach about 100 yards from you, \nand there is a Jungle to the South.");
-        System.out.println("The sun is high in the sky... for now");
-        System.out.println("******************");
+        System.out.println("     *******************");
+        System.out.println("\tWELCOME TO THE GAME"); //Figure out how to format dialogue better
+        System.out.println("\tYou wake up with a start. You're lying on a beach, stranded. \n\tYou stand up, wiping the sand from your clothes and look around. \n\tYou see that your BOAT is lying on the beach about 100 yards from you, \n\tand there is a Jungle to the South.");
+        System.out.println("\tThe sun is high in the sky... for now");
+        System.out.println("     ******************");
 
         // Instructions are sometimes helpful
-        System.out.println("Feel free to WALK around, LOOK AT, or PICK UP things. Type HELP if you need help.");
+        System.out.println("\tFeel free to WALK around, LOOK AT, or PICK UP things. Type HELP if you need help.");
 
         // The do...while structure means we execute the body of the loop once before checking the stopping condition
         do {
             // ************************************************
             // The stuff that happens in your game will go here
             //  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓  ↓
-            System.out.println("What would you like to do?");
+            System.out.println("\n\tWhat would you like to do?\n");
             try {
                 userResponse = parseInput(userInput.nextLine().toUpperCase());
             } catch (Exception e) {
