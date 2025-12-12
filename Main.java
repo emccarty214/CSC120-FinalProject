@@ -97,16 +97,16 @@ public class Main {
 
 
         //Creating map
-        Location northBeach = new Location("North Beach", "You are standing on a nice sandy Beach, there is a lighthouse in the distance. There is a path to the South.", new Coordinate(0,0), new ArrayList<Item>());
-        Location jungle1 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(0,-1), new ArrayList<Item>());
-        Location jungle2 = new Location("Jungle", "You are standing in a sparse Jungle, there are paths to the East and South", new Coordinate(-1,-1), new ArrayList<Item>());
+        Location northBeach = new Location("North Beach", "You are standing on a nice sandy Beach, there is a lighthouse in the distance. There is a path to the South.", new Coordinate(3,3), new ArrayList<Item>());
+        Location jungle1 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(3,2), new ArrayList<Item>());
+        Location jungle2 = new Location("Jungle", "You are standing in a sparse Jungle, there are paths to the East and South", new Coordinate(2,2), new ArrayList<Item>());
         //Jungle 3 is adjacent to the village, but intentionally does not connect to it.
-        Location jungle3 = new Location("Jungle", "You are standing in a thick Jungle, there is a path to the West", new Coordinate(1,-1), new ArrayList<Item>());
-        Location jungle4 = new Location("Jungle", "You are standing in a thick Jungle, there are paths to the East and North", new Coordinate(-1,-2), new ArrayList<Item>());
-        Location jungle5 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(0,-2), new ArrayList<Item>());
+        Location jungle3 = new Location("Jungle", "You are standing in a thick Jungle, there is a path to the West", new Coordinate(4,2), new ArrayList<Item>());
+        Location jungle4 = new Location("Jungle", "You are standing in a thick Jungle, there are paths to the East and North", new Coordinate(2,1), new ArrayList<Item>());
+        Location jungle5 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(3, 1), new ArrayList<Item>());
         
-        Location village = new Location("Deserted Village", "You see a deserted village in front of you. There are a few decrepid houses, but no recent signs of life", new Coordinate(1,-2), new ArrayList<Item>());
-        Location southBeach =  new Location("South Beach", "You are standing on a very rocky Beach and you see the vast expanse of the ocean in front of you. There is a path to the North.", new Coordinate(0,-3), new ArrayList<Item>());
+        Location village = new Location("Deserted Village", "You see a deserted village in front of you. There are a few decrepid houses, but no recent signs of life", new Coordinate(4,1), new ArrayList<Item>());
+        Location southBeach =  new Location("South Beach", "You are standing on a very rocky Beach and you see the vast expanse of the ocean in front of you. There is a path to the North.", new Coordinate(3,0), new ArrayList<Item>());
 
 
         northBeach.addItem(stick1);

@@ -13,7 +13,6 @@ public class Location {
     private ArrayList<Location> adjacentLocations; // list of adjacent locations
     private HashMap<Coordinate, Boolean> adjCoordinates;
     
-
     /** 
      * Constructor for a location
      * @param name location name
@@ -37,8 +36,6 @@ public class Location {
         this.adjCoordinates = coords;
     }
 
-
-
     /**
      * Prints out the name and description of a location
      */
@@ -48,8 +45,6 @@ public class Location {
         System.out.println("On the ground there is: ");
         this.printItems();
     }
-
-
 
     /**
      * removes an item from the location
@@ -64,8 +59,6 @@ public class Location {
      
     }
 
-
-
     /**
      * adds an item to the location if it is not already there
      * @param i the item you want to add to the location
@@ -77,8 +70,6 @@ public class Location {
             this.items.add(i);
         }
     }
-
-
 
     /**
      * adds a location to the array list of adjactent locations
@@ -112,8 +103,6 @@ public class Location {
         
     }
 
-
-
     /**
      * removes an location from the adjacent location array list
      * @param l location to be removed from the location's adjacent locations
@@ -135,9 +124,7 @@ public class Location {
 
         if(!isAdjacent){
             throw new RuntimeException("The location given is not adjacent to this location");
-        }
-
-        
+        }    
         
         // if (this.adjacentLocations.contains(l)) { // if location's items CONTAINS the item, REMOVE it
         //     this.adjacentLocations.remove(l);
@@ -146,11 +133,6 @@ public class Location {
         // }
      
     }
-
-
-
-
-    
 
     /**
      * prints list of all items in location 
@@ -161,9 +143,6 @@ public class Location {
         } 
     }
 
-
-
-
     // Getters methods for coordinates and adjacent locations
     public Coordinate getCoord(){
         return this.coordinate;
@@ -172,8 +151,6 @@ public class Location {
     public ArrayList<Location> getAdjLocations(){
         return this.adjacentLocations;
     }
-
-    
     
     public String getName() {
         return this.name;
