@@ -188,7 +188,7 @@ public class Main {
                 userResponse = parseInput(userInput.nextLine().toUpperCase());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                continue; // has them try again
+                continue; // has them try again, for all continue statements it does not increase your move counter
             }
             
 
@@ -201,7 +201,6 @@ public class Main {
                     
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    continue;
                 }
             } else if (userResponse.equals("look around")){
                 mc.currentLocation.describe();
@@ -322,19 +321,29 @@ public class Main {
                 System.out.println(" LOOK AT: Displays what items are in your inventory and around you");
                 System.out.println(" PICK UP: Picks up an item");
                 System.out.println(" DROP: Drops an item");
-                System.out.println(" USE: Interact with or use an item");
+                System.out.println(" USE/INTERACT/FIX: Interact with or use an item");
                 System.out.println("    - example:  USE BOAT");
                 System.out.println("    - example:  USE STICK");
                 System.out.println(" INVENTORY: View your current inventory.");
                 System.out.println("---------------------");
-            }
-
-            if((mc.getNumSticks() >=sticksForSuccess && mc.getNumNails() >=nailsForSuccess && mc.getHasHammer() && mc.currentLocation.equals(northBeach)) || currentTime>= timerMax){
-                stillPlaying = false;
-                if(currentTime>= timerMax){
-                    winOrLose = false;
+            } else if (userResponse.equals("fix boat")){
+                if(mc.currentLocation.getItems().contains(boat)){
+                    boat.use();
+                } else{
+                    System.out.println("You're too far away from the BOAT here! Try heading bach to North Beach.");
                 }
             }
+
+            if (currentTime>= timerMax){
+                stillPlaying = false;
+                winOrLose =false;
+            } else if (mc.getNumSticks() >=sticksForSuccess && mc.getNumNails() >=nailsForSuccess && mc.getHasHammer() && mc.currentLocation.equals(northBeach)){
+                stillPlaying = false;
+                // if(currentTime>= timerMax){
+                //     winOrLose = false;
+                // }
+            }
+            
             if(stillPlaying){
                 currentTime++;
             }
@@ -381,17 +390,13 @@ public class Main {
             return "drop";
         } else if (input.contains(" HELP ")){
             return "help";
-        } else if (input.contains(" Y ") || input.contains(" YES ")){
-            return "yes";
-        } else if (input.contains(" N ") || input.contains(" NO ")){
-            return "no";
         } else if(input.contains(" INTERACT ") || input.contains(" USE ")){
             return "use";
         } else if(input.contains(" INVENTORY ")){
             return "inventory";
-        }
-        
-        else {
+        } else if(input.contains(" FIX BOAT ")){
+            return "fix boat";
+        } else {
             throw new RuntimeException("I don't understand what you are trying to do. Please try again.");
         }
     }
