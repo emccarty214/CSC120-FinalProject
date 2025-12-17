@@ -72,6 +72,7 @@ public class MainCharacter {
         if(isAdjacent) {
             this.currentLocation = adjLocation;
             this.currentLocation.describe(); // added by Claire on 12/4/2025
+            this.currentLocation.found(); //****************************************- CHECK -*************************************************
         } else {
             throw new RuntimeException("You can't go this way!");
         }

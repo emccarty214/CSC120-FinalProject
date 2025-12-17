@@ -73,18 +73,18 @@ public class Main {
         Location village = new Location("Deserted Village", "You see a deserted village in front of you. There are a few decrepid houses, but no recent signs of life", new Coordinate(5,2), new ArrayList<Item>());
         Location southBeach =  new Location("South Beach", "You are standing on a very rocky Beach and you see the vast expanse of the ocean in front of you. There is a path to the North.", new Coordinate(4,1), new ArrayList<Item>());
 
-        ArrayList<Coordinate> coordinateList = new ArrayList<Coordinate>();
-        coordinateList.add(northBeach.getCoord());
-        coordinateList.add(jungle1.getCoord());
-        coordinateList.add(jungle2.getCoord());
-        coordinateList.add(jungle3.getCoord());
-        coordinateList.add(jungle4.getCoord());
-        coordinateList.add(jungle5.getCoord());
-        coordinateList.add(village.getCoord());
-        coordinateList.add(southBeach.getCoord());
+        //Creating 2-D map
+        ArrayList<Location> coordinateList = new ArrayList<Location>();
+        coordinateList.add(northBeach);
+        coordinateList.add(jungle1);
+        coordinateList.add(jungle2);
+        coordinateList.add(jungle3);
+        coordinateList.add(jungle4);
+        coordinateList.add(jungle5);
+        coordinateList.add(village);
+        coordinateList.add(southBeach);
 
         Map map = new Map(coordinateList);
-        map.use();
 
         northBeach.addItem(stick1);
         northBeach.addItem(boat);
@@ -297,6 +297,8 @@ public class Main {
                 } else{
                     System.out.println("You're too far away from the BOAT here! Try heading bach to North Beach.");
                 }
+            } else if (userResponse.equals("map")){
+                map.use();
             }
 
 
@@ -361,6 +363,8 @@ public class Main {
             return "inventory";
         } else if(input.contains(" FIX BOAT ")){
             return "fix boat";
+        } else if (input.contains("MAP")){
+            return "map";
         } else {
             throw new RuntimeException("I don't understand what you are trying to do. Please try again.");
         }

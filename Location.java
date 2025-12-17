@@ -99,7 +99,9 @@ public class Location {
         
     }
 
-
+    public void found(){
+        this.isFound = true;
+    }
 
     /**
      * removes an location from the adjacent location array list
@@ -125,7 +127,6 @@ public class Location {
      
     }
 
-    
 
     /**
      * prints list of all items in location 
@@ -139,6 +140,10 @@ public class Location {
     // Getters methods for coordinates and adjacent locations
     public Coordinate getCoord(){
         return this.coordinate;
+    }
+
+    public boolean getIsFound(){
+        return this.isFound;
     }
 
     public ArrayList<Location> getAdjLocations(){
