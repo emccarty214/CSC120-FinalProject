@@ -1,47 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The playable class. Contains the Game Loop. Press the play button to play our game!
+ */
 public class Main {
 
-    //Note from Claire: When we are creating sticks, as repetitive as it may be, we should create
-    //multiple stick objects instead of using the same ones. As if we use the same one, it will
-    //be the same item in memory and any changes we make to it will affect all the times its referenced
-
-    // Note from Claire: We might need to add addAdjLocation() to Location so we can intialize
-    // everything properly
-    // take ArrayList<Location> adjacentLocations out of constructer and add some add and remove methods for it instead
-
-    // For Location Class add a printAdjLocations method
-
-
-    //This is where our game loop will go.
-
-    //Main things to work on here are:
-        // Initializing all game elements and setting up the map
-        // Creating the game loop
-        // Handline user input within the game loop
-        // Setting up the game structure itself
-        // Testing the game
-
-
-    // For setting up the game structure:
-        // Once all locations are initialized and set the main goals for the player are:
-            // Explore Island
-            // Collect all Sticks
-            // Use Sticks on Boat to escape
-        // Some possible dialogue options are
-            // You picked up a STICK! You have x STICKS left to collect!
-            // You wake up with a start. You're lying on a beach, stranded. You stand up, wiping
-                // the sand from your clothes and look around. You see that your BOAT 
-                // is lying on the beach about 100 yards from you, and there is a Jungle to the South.
-            // The Jungle around you is thick with vines. Only a little sunlights makes its way
-                // through the dense foliage. When you look around, you see 1 STICK on the ground,
-                // and a possible path in all four cardinal directions.
-            // The Jungle around you is not very thick. There are some flowers scattered about, and
-                // you hear the sounds of some birds squawking. When you look around, you see 2 STICKS 
-                // on the ground, and a possible path to the South and East.
-        // There is more that needs to be written, this is just to give us an idea of some location
-            // descriptions and how we might want to format things
+    
 
     public static void main(String[] args) {
         // This is a "flag" to let us know when the loop should end
@@ -202,9 +167,9 @@ public class Main {
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-            } else if (userResponse.equals("look around")){
+            } else if (userResponse.equals("look around")) {
                 mc.currentLocation.describe();
-            } else if (userResponse.equals("look at")){
+            } else if (userResponse.equals("look at")) {
                 System.out.println("What would you like to look at? Your options are: \n Inventory:");
                 mc.printInventory();
                 System.out.println(" Or in your surroundings: ");
@@ -233,7 +198,7 @@ public class Main {
                 if (itemDescribed == false){
                     System.out.println("Sorry, I don't understand.");
                 }
-            } else if (userResponse.equals("pick up")){
+            } else if (userResponse.equals("pick up")) {
                 System.out.println("What would you like to pick up? Around you there are: ");
                 mc.currentLocation.printItems();
                 try {
@@ -259,7 +224,7 @@ public class Main {
                 if (itemSearched == false){
                     System.out.println("Sorry, I don't understand.");
                 }
-            } else if (userResponse.equals("drop")){
+            } else if (userResponse.equals("drop")) {
                 System.out.println("What would you like to look at? Your options are: \n Inventory:");
                 mc.printInventory();
                 try {
@@ -279,7 +244,7 @@ public class Main {
                 if (itemDropped == false){
                     System.out.println("Sorry, I don't understand.");
                 }
-            } else if (userResponse.equals("use")){
+            } else if (userResponse.equals("use")) {
                 System.out.println("What would you like to use/interact with? Your options are: \n Inventory:");
                 mc.printInventory();
                 System.out.println(" Or in your surroundings: ");
@@ -308,7 +273,7 @@ public class Main {
                 if (itemUsed == false){
                     System.out.println("Sorry, I don't understand.");
                 }
-            } else if(userResponse.equals("inventory")){
+            } else if(userResponse.equals("inventory")) {
                 mc.printInventory();
             } else if (userResponse.equals("help")){
                 System.out.println("---------------------");
@@ -334,14 +299,14 @@ public class Main {
                 }
             }
 
+
+            // Checking win/lose conditions
             if (currentTime>= timerMax){
                 stillPlaying = false;
                 winOrLose =false;
             } else if (mc.getNumSticks() >=sticksForSuccess && mc.getNumNails() >=nailsForSuccess && mc.getHasHammer() && mc.currentLocation.equals(northBeach)){
                 stillPlaying = false;
-                // if(currentTime>= timerMax){
-                //     winOrLose = false;
-                // }
+                
             }
             
             if(stillPlaying){

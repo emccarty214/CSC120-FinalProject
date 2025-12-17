@@ -2,16 +2,19 @@ import java.util.ArrayList;
 
 /**
  * A class that simulates the Main Player Character.
- * Author : Claire Newcom
  */
 public class MainCharacter {
 
-    Location currentLocation;
-    ArrayList<Item> inventory;
-    private int numSticks;
-    private int numNails;
-    private boolean hasHammer;
+    Location currentLocation; // the current location that the mc is at
+    ArrayList<Item> inventory; // the main character's inventory
+    private int numSticks; // the number of sticks the main character currently has
+    private int numNails; // the number of nails the main character currently has
+    private boolean hasHammer; // whether or not the main character has a hammer
 
+    /**
+     * A full comstructor for the MainCharacter class
+     * @param initialLocation the initial location the main character will be starting at
+     */
     public MainCharacter(Location initialLocation) {
         this.currentLocation=initialLocation;
         this.inventory = new ArrayList<Item>();
@@ -28,10 +31,18 @@ public class MainCharacter {
         return this.numSticks;
     }
 
+    /**
+     * A method that returns the number of nails in the inventory
+     * @return number nails in inventory
+     */
     public int getNumNails(){
         return this.numNails;
     }
 
+    /**
+     * A method that returns if there is a hammer in the inventory
+     * @return true if the hammer is in the inventory, false if not
+     */
     public boolean getHasHammer(){
         return this.hasHammer;
     }

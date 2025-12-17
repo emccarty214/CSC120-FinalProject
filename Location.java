@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-
+/**
+ * A class which simulates a location.
+ */
 public class Location {
     // Attributes:
     private String name; // location name
@@ -19,7 +21,6 @@ public class Location {
      * @param description location description
      * @param coordinate location map coordinates
      * @param items list of items in location
-     * @param adjloc list of adjacent places to location
      */
     public Location(String name, String description, Coordinate coordinate, ArrayList<Item> items) {
         this.name = name;
@@ -92,16 +93,11 @@ public class Location {
 
         if(!isAdjacent){
             throw new RuntimeException("The location given is not adjacent to this location");
-        }
-
-
-        // if (this.adjacentLocations.contains(l)) { // if adjacent locations CONTAINS the location already, THROW EXCEPTION
-        //     throw new RuntimeException(l.getName() + " is already in the list of adjacent locations for " + this.name + ". You cannot add an item that is already in this location");
-        // } else { // if adjacent locations DOES NOT CONTAIN the location, ADD it
-        //     this.adjacentLocations.add(l);
-        // }   
+        } 
         
     }
+
+
 
     /**
      * removes an location from the adjacent location array list
@@ -126,13 +122,11 @@ public class Location {
             throw new RuntimeException("The location given is not adjacent to this location");
         }    
         
-        // if (this.adjacentLocations.contains(l)) { // if location's items CONTAINS the item, REMOVE it
-        //     this.adjacentLocations.remove(l);
-        // } else { // if location's items DOES NOT CONTAIN the item, THROW EXCEPTION
-        //     throw new RuntimeException("There is no " + l.getName() + " currently adjacent to " + this.name + ". You cannot remove a location that is not in the list");
-        // }
+    
      
     }
+
+    
 
     /**
      * prints list of all items in location 

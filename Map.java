@@ -1,9 +1,16 @@
 import java.util.ArrayList;
+/**
+ * A class that simulates a 2D map
+ */
 public class Map extends Item{
 
     private ArrayList<Coordinate> coordinates;
     private String[][] map = new String[6][6];
 
+    /**
+     * A full constructor for the map class
+     * @param coordinates a list of coordinates (not bigger that 36 elements) to be mapped out.
+     */
     public Map(ArrayList<Coordinate> coordinates){
         this.coordinates = coordinates;
 
@@ -12,6 +19,7 @@ public class Map extends Item{
                 map[r][c] = "-";
             }
         }
+        
         for (Coordinate coord : coordinates){
             int x = coord.getX();
             int y = coord.getY();
