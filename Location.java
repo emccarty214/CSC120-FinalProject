@@ -14,6 +14,7 @@ public class Location {
     private ArrayList<Item> items; // list of items in this location
     private ArrayList<Location> adjacentLocations; // list of adjacent locations
     private HashMap<Coordinate, Boolean> adjCoordinates;
+    private boolean isFound;
     
     /** 
      * Constructor for a location
@@ -28,6 +29,7 @@ public class Location {
         this.coordinate = coordinate;
         this.items = items;
         this.adjacentLocations = new ArrayList<>();
+        this.isFound = false;
         //Setting up adjacent coordinates
         HashMap<Coordinate, Boolean> coords = new HashMap<>();
         coords.put(new Coordinate(coordinate.getX(),coordinate.getY()+1), false);
@@ -117,12 +119,9 @@ public class Location {
                 }
             }
         }
-
         if(!isAdjacent){
             throw new RuntimeException("The location given is not adjacent to this location");
         }    
-        
-    
      
     }
 
