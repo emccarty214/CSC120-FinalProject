@@ -62,16 +62,16 @@ public class Main {
 
 
         //Creating map
-        Location northBeach = new Location("North Beach", "You are standing on a nice sandy Beach, there is a lighthouse in the distance. There is a path to the South.", new Coordinate(4,4), new ArrayList<Item>());
-        Location jungle1 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(4,3), new ArrayList<Item>());
-        Location jungle2 = new Location("Jungle", "You are standing in a sparse Jungle, there are paths to the East and South", new Coordinate(3,3), new ArrayList<Item>());
+        Location northBeach = new Location("North Beach", "You are standing on a nice sandy Beach, there is a lighthouse in the distance. There is a path to the South.", new Coordinate(3,4), new ArrayList<Item>());
+        Location jungle1 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(3,3), new ArrayList<Item>());
+        Location jungle2 = new Location("Jungle", "You are standing in a sparse Jungle, there are paths to the East and South", new Coordinate(2,3), new ArrayList<Item>());
         //Jungle 3 is adjacent to the village, but intentionally does not connect to it.
-        Location jungle3 = new Location("Jungle", "You are standing in a thick Jungle, there is a path to the West", new Coordinate(5,3), new ArrayList<Item>());
-        Location jungle4 = new Location("Jungle", "You are standing in a thick Jungle, there are paths to the East and North", new Coordinate(3,2), new ArrayList<Item>());
-        Location jungle5 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(4,2), new ArrayList<Item>());
+        Location jungle3 = new Location("Jungle", "You are standing in a thick Jungle, there is a path to the West", new Coordinate(4,3), new ArrayList<Item>());
+        Location jungle4 = new Location("Jungle", "You are standing in a thick Jungle, there are paths to the East and North", new Coordinate(2,2), new ArrayList<Item>());
+        Location jungle5 = new Location("Jungle", "You are standing in a thick Jungle, there are paths in all directions", new Coordinate(3,2), new ArrayList<Item>());
         
-        Location village = new Location("Deserted Village", "You see a deserted village in front of you. There are a few decrepid houses, but no recent signs of life", new Coordinate(5,2), new ArrayList<Item>());
-        Location southBeach =  new Location("South Beach", "You are standing on a very rocky Beach and you see the vast expanse of the ocean in front of you. There is a path to the North.", new Coordinate(4,1), new ArrayList<Item>());
+        Location village = new Location("Deserted Village", "You see a deserted village in front of you. There are a few decrepid houses, but no recent signs of life", new Coordinate(4,2), new ArrayList<Item>());
+        Location southBeach =  new Location("South Beach", "You are standing on a very rocky Beach and you see the vast expanse of the ocean in front of you. There is a path to the North.", new Coordinate(3,1), new ArrayList<Item>());
 
         //Creating 2-D map
         ArrayList<Location> coordinateList = new ArrayList<Location>();
@@ -84,8 +84,10 @@ public class Main {
         coordinateList.add(village);
         coordinateList.add(southBeach);
 
+        //Initiating 2-D map
         Map map = new Map(coordinateList);
 
+        //Adding items to locations
         northBeach.addItem(stick1);
         northBeach.addItem(boat);
 
@@ -105,7 +107,7 @@ public class Main {
 
         southBeach.addItem(nail3);
 
-        //Form map
+        //Forming map, linking locations together
         northBeach.addLocation(jungle1);
         jungle1.addLocation(northBeach);
 
@@ -135,8 +137,8 @@ public class Main {
 
         // This could be replaced with a more interesting opening
         System.out.println("     *******************");
-        System.out.println("\tWELCOME TO THE GAME"); //Figure out how to format dialogue better
-        System.out.println("\tYou wake up with a start. You're lying on a beach, stranded. \n\tYou stand up, wiping the sand from your clothes and look around. \n\tYou see that your BOAT is lying on the beach about 100 yards from you, \n\tand there is a Jungle to the South.");
+        System.out.println("\tWELCOME TO THE GAME"); 
+        System.out.println("\tYou wake up with a start. You're lying on a beach, stranded. \n\tYou stand up, wiping the sand from your clothes and look around. \n\tYou see that your broken BOAT is lying on the beach about 100 yards from you, \n\tand there is a Jungle to the South.");
         System.out.println("\tThe sun is high in the sky... for now");
         System.out.println("     ******************");
 
@@ -167,6 +169,8 @@ public class Main {
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
+
+            // Parsing input and deciding actions based on inputs
             } else if (userResponse.equals("look around")) {
                 mc.currentLocation.describe();
             } else if (userResponse.equals("look at")) {
@@ -198,7 +202,7 @@ public class Main {
                 if (itemDescribed == false){
                     System.out.println("Sorry, I don't understand.");
                 }
-            } else if (userResponse.equals("pick up")) {
+            } else if (userResponse.equals("pick up")) { //Code for picking up items
                 System.out.println("What would you like to pick up? Around you there are: ");
                 mc.currentLocation.printItems();
                 try {
@@ -224,7 +228,7 @@ public class Main {
                 if (itemSearched == false){
                     System.out.println("Sorry, I don't understand.");
                 }
-            } else if (userResponse.equals("drop")) {
+            } else if (userResponse.equals("drop")) { // Code for dropping items
                 System.out.println("What would you like to look at? Your options are: \n Inventory:");
                 mc.printInventory();
                 try {
@@ -244,7 +248,7 @@ public class Main {
                 if (itemDropped == false){
                     System.out.println("Sorry, I don't understand.");
                 }
-            } else if (userResponse.equals("use")) {
+            } else if (userResponse.equals("use")) { // Code for using an item
                 System.out.println("What would you like to use/interact with? Your options are: \n Inventory:");
                 mc.printInventory();
                 System.out.println(" Or in your surroundings: ");
@@ -273,9 +277,9 @@ public class Main {
                 if (itemUsed == false){
                     System.out.println("Sorry, I don't understand.");
                 }
-            } else if(userResponse.equals("inventory")) {
+            } else if(userResponse.equals("inventory")) { // Code to print inventory
                 mc.printInventory();
-            } else if (userResponse.equals("help")){
+            } else if (userResponse.equals("help")){ // Code to show help message
                 System.out.println("---------------------");
                 System.out.println("Commands you can run:");
                 System.out.println(" HELP: Displays this message");
@@ -290,14 +294,15 @@ public class Main {
                 System.out.println("    - example:  USE BOAT");
                 System.out.println("    - example:  USE STICK");
                 System.out.println(" INVENTORY: View your current inventory.");
+                System.out.println(" MAP: View an updating map.");
                 System.out.println("---------------------");
-            } else if (userResponse.equals("fix boat")){
+            } else if (userResponse.equals("fix boat")){ //Code to fix the boat
                 if(mc.currentLocation.getItems().contains(boat)){
                     boat.use();
                 } else{
                     System.out.println("You're too far away from the BOAT here! Try heading bach to North Beach.");
                 }
-            } else if (userResponse.equals("map")){
+            } else if (userResponse.equals("map")){ // Code for map to be used
                 map.use();
             }
 
@@ -329,10 +334,9 @@ public class Main {
         } else { // userResponse.equals("LOSE")
             System.out.println("You took too long searching and it got dark. While you were hopelessly wandering, a Tiger came and ate you. You lose.");
         }
-
-
     }
 
+    //Code to parse inputs and turn them into standardized outputs
     private static String parseInput(String str){
         String input = " " + str + " ";
         if(input.contains(" MOVE ") || input.contains(" WALK ") || input.contains(" RUN ") || input.contains(" GO ")) {

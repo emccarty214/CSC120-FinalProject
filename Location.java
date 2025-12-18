@@ -124,7 +124,6 @@ public class Location {
         if(!isAdjacent){
             throw new RuntimeException("The location given is not adjacent to this location");
         }    
-     
     }
 
 
@@ -137,23 +136,42 @@ public class Location {
         } 
     }
 
-    // Getters methods for coordinates and adjacent locations
+    /**
+     * Getters methods for coordinates and adjacent locations
+     * @return Coordinate of location
+     */
     public Coordinate getCoord(){
         return this.coordinate;
     }
 
+    /**
+     * Getter method for the isFound boolean, which is true/false for if a location has been entered
+     * @return boolean if location has been entered
+     */
     public boolean getIsFound(){
         return this.isFound;
     }
 
+    /**
+     * Getter method for ArrayList of Location class
+     * @return an ArrayList of Location class of the locations adjacent locations
+     */
     public ArrayList<Location> getAdjLocations(){
         return this.adjacentLocations;
     }
     
+    /**
+     * Getter method for name of location
+     * @return String of location name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter method for an ArrayList of Items in a location
+     * @return ArrayList of Item class
+     */
     public ArrayList<Item> getItems(){
         return items;
     }

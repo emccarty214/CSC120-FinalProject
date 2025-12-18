@@ -1,3 +1,6 @@
+/**
+ * Class that allowed us to test basic functionality of the game
+ */
 
 import java.util.ArrayList;
 import org.junit.Test;

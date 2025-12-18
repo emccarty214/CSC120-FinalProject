@@ -4,6 +4,7 @@ import java.util.ArrayList;
  */
 public class Map extends Item{
 
+    //Attributes
     private ArrayList<Location> locations;
     private String[][] map = new String[5][6];
 
@@ -21,19 +22,39 @@ public class Map extends Item{
         }
 
     }
-
+    
+    /**
+     * Uses the map and prints the map
+     * Updates and reveals more of the map as the game is played
+     */
     @Override
     public void use(){
+ 
         System.out.println("----MAP----");
-
-        for (Location location : locations){
-            int x = 6 - location.getCoord().getX();
-            int y = 5 - location.getCoord().getY();
-            if (location.getIsFound()){
-                map[x][y] = "X";
+        for (int r = 0; r < 5; r++){
+            for (int c = 0; c < 6; c++){
+                map[r][c] = "-";
             }
         }
-        
+
+        int minX = 0;
+        int maxY = 4; 
+
+        for (Location location : locations){
+            int x = location.getCoord().getX();
+            int y = location.getCoord().getY();
+
+            int col = x - minX;           
+            int row = maxY - y;          
+
+            if (row >= 0 && row < 5 && col >= 0 && col < 6) {
+                if (location.getIsFound()){
+                    map[row][col] = "X";
+                }
+            }
+        }
+
+        // prints top to bottom
         for (int r = 0; r < 5; r++) {
             for (int c = 0; c < 6; c++) {
                 System.out.print(map[r][c] + " ");

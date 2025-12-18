@@ -3,6 +3,7 @@
  */
 public class Boat extends Item{
 
+    //Attributes
     private int sticksForSuccess; //the number of sticks required to fix the boat
     private int nailsForSuccess; // the number of nails required to fix the boat
     private int hammersForSuccess; // the number of hammers required to fix the boat
